@@ -1,0 +1,70 @@
+version: "3.8"
+
+services:
+  ui:
+    build:
+      context: ui
+    container_name: ui
+    ports:
+      - 3000:80
+    volumes:
+      - ./ui/src:/code/src
+    networks:
+      - public
+    depends_on:
+      - server
+  server:
+    build:
+      context: server
+    container_name: server
+    environment:
+      - AWS_SECRET_ACCESS_KEY=DUMMYEXAMPLEKEY
+      - AWS_ACCESS_KEY_ID=DUMMYIDEXAMPLE
+    ports:
+      - 3001:3000
+    networks:
+      - public
+      - private
+    depends_on:
+      - dynamodb-local
+  proxy:
+    image: nginx:latest
+    container_name: nginx-proxy
+    ports:
+      - 80:80
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - public
+    depends_on:
+      - ui
+  dynamodb-local:
+    container_name: dynamodb
+    image: amazon/dynamodb-local
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodb
+    user: root
+    volumes:
+      - dynamodb_data:/home/dynamodb
+    ports:
+      - "8000:8000"
+    networks:
+      - private
+  dynamodb-admin:
+    container_name: dynamodb-admin
+    image: aaronshaf/dynamodb-admin
+    environment:
+      - DYNAMO_ENDPOINT=http://dynamodb:8000
+    ports:
+      - "8001:8001"
+    networks:
+      - public
+      - private
+
+networks:
+  public:
+    name: prompt-public
+  private:
+    name: prompt-private
+
+volumes:
+  dynamodb_data:

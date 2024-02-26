@@ -1,0 +1,111 @@
+#root {
+  text-align: center;
+}
+
+.body-content {
+  padding: 0 6rem;
+  min-height: 75vh;
+}
+
+.logo {
+  padding: 1.5rem;
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Header */
+
+.custom-header {
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid #DDD;
+  position: sticky;
+  top:0;
+}
+
+/* Footer */
+
+.custom-footer {
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #DDD;
+}
+
+.not-found {
+  height: 75vh;
+}
+
+.prompt-page-container {
+  width: 80%;
+}
+
+.banner {
+  height: 90vh
+}
+
+/* Loading circles */
+
+.loading-circle {
+  margin: 1rem;
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #4B0247;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 2s linear infinite;
+}
+
+.loading-circle-small {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #4B0247;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Forms */
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.circuit {
+  background: url('../circuit.png') no-repeat;
+  background-size: contain;
+  width: 24vw;
+  height: 24vw;
+}
+
+.prompt-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media screen and (max-width: 700px) {
+  .prompt-page-container {
+    width: 100%;
+  }
+  .body-content {
+    padding: 0 2rem;
+  }
+  .circuit {
+    width: 0;
+  }
+}
